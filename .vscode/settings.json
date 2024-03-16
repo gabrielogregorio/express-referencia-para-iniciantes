@@ -6,12 +6,10 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.preferences.importModuleSpecifier": "relative",
-
   "files.autoSave": "afterDelay",
-
-  "editor.fontFamily": "'Fira Code'",
+  // "editor.fontFamily": "'Fira Code'",
   "editor.fontLigatures": true,
-  "terminal.integrated.fontFamily": "'Fira Code'",
+  // "terminal.integrated.fontFamily": "'Fira Code'",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Dracula",
   "window.zoomLevel": 0.3,
