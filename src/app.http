@@ -1,0 +1,34 @@
+### main router
+GET http://localhost:3000 HTTP/1.1
+
+### Criar um novo post
+POST http://localhost:3000/posts HTTP/1.1
+content-type: application/json
+
+{
+  "title":"my 2",
+  "body":"content"
+}
+
+### Obter todos os posts
+
+GET http://localhost:3000/posts HTTP/1.1
+
+### Obter um post pelo id
+
+GET http://localhost:3000/posts/1710548694723 HTTP/1.1
+
+### edita um post pelo id
+PUT http://localhost:3000/posts/1710548694723 HTTP/1.1
+content-type: application/json
+
+{
+  "title":"my novo",
+  "body":"content"
+}
+
+###  deletar um post pelo id
+
+DELETE http://localhost:3000/posts/1710548694723 HTTP/1.1
+
+
