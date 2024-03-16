@@ -16,10 +16,10 @@ GET http://localhost:3000/posts HTTP/1.1
 
 ### Obter um post pelo id
 
-GET http://localhost:3000/posts/1710548694723 HTTP/1.1
+GET http://localhost:3000/posts/1710589926426 HTTP/1.1
 
 ### edita um post pelo id
-PUT http://localhost:3000/posts/1710548694723 HTTP/1.1
+PUT http://localhost:3000/posts/1710589926426 HTTP/1.1
 content-type: application/json
 
 {
@@ -29,6 +29,6 @@ content-type: application/json
 
 ###  deletar um post pelo id
 
-DELETE http://localhost:3000/posts/1710548694723 HTTP/1.1
+DELETE http://localhost:3000/posts/1710589926426 HTTP/1.1
 
 

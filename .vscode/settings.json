@@ -5,7 +5,8 @@
 
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+
   "files.autoSave": "afterDelay",
 
   "editor.fontFamily": "'Fira Code'",
@@ -26,7 +27,6 @@
   },
   "javascript.updateImportsOnFileMove.enabled": "never",
   "typescript.updateImportsOnFileMove.enabled": "never",
-  "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.env.linux": {},
   "git.openRepositoryInParentFolders": "never",
   "workbench.startupEditor": "newUntitledFile",

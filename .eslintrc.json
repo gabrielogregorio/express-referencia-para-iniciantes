@@ -23,6 +23,9 @@
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "camelcase": "off",
+
+    "no-console": "off",
+
     "no-underscore-dangle": "off",
     "no-shadow": "off",
     "class-methods-use-this": "off",

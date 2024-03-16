@@ -13,8 +13,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-
-    "comentário": "Desligue o strict mode se não estiver conseguindo resolver problemas básicos",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
