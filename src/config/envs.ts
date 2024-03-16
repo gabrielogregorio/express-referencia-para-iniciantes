@@ -4,3 +4,7 @@
 import '@/wrappers/envs';
 
 export const PORT = Number(process.env.PORT?.trim());
+
+if (Number.isNaN(PORT)) {
+  throw new Error('\n\n\n\nVocê precisa de definir uma porta, copie o .env.example para o .env'); // geralmente a gente não faz isso kkk, nunca, mas só para facilitar a vida haha
+}
