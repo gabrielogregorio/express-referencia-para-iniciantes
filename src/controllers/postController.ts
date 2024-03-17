@@ -1,4 +1,4 @@
-import { Request, Response } from '@/wrappers/express';
+import { Request, Response } from '@/facades/express';
 import { Post, postInstance } from '../services/postService';
 import { CreatePostBodyType } from '../schemas/createPost';
 import { messages } from '../constants/messages';

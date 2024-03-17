@@ -1,4 +1,4 @@
-import { Response } from '@/wrappers/express';
+import { Response } from '@/facades/express';
 import { statusCode } from '../constants/statusCode';
 
 export interface IHandleSendSuccessFull<T> {

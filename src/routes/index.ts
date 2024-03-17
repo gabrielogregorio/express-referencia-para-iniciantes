@@ -1,4 +1,4 @@
-import { Router, Request, Response } from '@/wrappers/express';
+import { Router, Request, Response } from '@/facades/express';
 import { postRouter } from './postRouter';
 import { statusCode } from '../constants/statusCode';
 

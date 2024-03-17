@@ -1,5 +1,5 @@
 import 'express-async-errors';
-import { NextFunction, Request, Response } from '@/wrappers/express';
+import { NextFunction, Request, Response } from '@/facades/express';
 import { CustomError } from '../errors';
 import { statusCode } from '../constants/statusCode';
 import { Log } from '../logger';

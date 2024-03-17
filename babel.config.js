@@ -17,7 +17,7 @@ module.exports = {
         alias: {
           '@/config': './src/config',
           '@/middlewares': './src/middlewares',
-          '@/wrappers': './src/wrappers',
+          '@/facades': './src/facades',
         },
       },
     ],

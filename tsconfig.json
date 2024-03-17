@@ -22,7 +22,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/wrappers/*": ["./src/wrappers/*"],
+      "@/facades/*": ["./src/facades/*"],
       "@/middlewares/*": ["./src/middlewares/*"],
       "@/config/*": ["./src/config/*"]
     }

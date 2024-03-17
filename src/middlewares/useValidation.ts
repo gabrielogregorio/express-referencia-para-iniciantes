@@ -1,5 +1,5 @@
 import { ObjectSchema } from 'joi';
-import { NextFunction, Request, Response } from '@/wrappers/express';
+import { NextFunction, Request, Response } from '@/facades/express';
 import { CustomError } from '../errors';
 import { statusCode } from '../constants/statusCode';
 

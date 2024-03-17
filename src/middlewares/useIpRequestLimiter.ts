@@ -1,5 +1,5 @@
 import rateLimit from 'express-rate-limit';
-import { Request, Response } from '@/wrappers/express';
+import { Request, Response } from '@/facades/express';
 import { statusCode } from '../constants/statusCode';
 
 const ONE_SECOND_IN_MS = 1000;

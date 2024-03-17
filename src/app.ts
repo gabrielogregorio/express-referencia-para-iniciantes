@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import { useIpRequestLimiter } from '@/middlewares/useIpRequestLimiter';
 import { router } from './routes';
 import { useHandleErrors } from './middlewares/useHandleErrors';
-import { express } from './wrappers/express';
+import { express } from './facades/express';
 
 const app = express();
 app.disable('x-powered-by');
