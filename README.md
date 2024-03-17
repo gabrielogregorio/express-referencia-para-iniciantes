@@ -62,3 +62,10 @@ Você pode ver a cobertura de testes na pasta coverage, ou na propria cli
 
 ![docs/open-coverage.png](docs/open-coverage.png)
 
+
+in chrome dev tools
+document.designMode = 'on'
+
+// dica clonar só um nivel de commits
+
+git clone https://github.com/jestjs/jest  --dept=1
