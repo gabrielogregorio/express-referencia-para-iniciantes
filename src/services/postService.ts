@@ -1,10 +1,15 @@
-interface Post {
+import { messages } from '../constants/messages';
+import { statusCode } from '../constants/statusCode';
+import { CustomError } from '../errors';
+
+export interface Post {
   id: string;
   title: string;
   body: string;
 }
 
-let database: Post[] = [];
+const database: Post[] = [];
+const POST_NOT_FOUND_NUMBER = -1;
 
 class PostService {
   private generateUniqueIdByDate() {
@@ -27,15 +32,20 @@ class PostService {
     return database;
   }
 
-  getById(postId: string): Post | undefined {
-    return database.find((postItem) => postItem.id === postId);
+  getById(postId: string): Post {
+    const postFounded = database.find((postItem) => postItem.id === postId);
+
+    if (!postFounded) {
+      throw new CustomError(messages.post.notFound, statusCode.notFound.code);
+    }
+
+    return postFounded;
   }
 
   updateById(postId: string, payload: { title: string; body: string }) {
-    const POST_NOT_FOUND_NUMBER = -1;
     const index = database.findIndex((postItem) => postItem.id === postId);
     if (index === POST_NOT_FOUND_NUMBER) {
-      return undefined;
+      throw new CustomError(messages.post.notFound, statusCode.notFound.code);
     }
 
     database[index] = { ...database[index], title: payload.title, body: payload.body };
@@ -44,7 +54,12 @@ class PostService {
   }
 
   deleteById(postId: string) {
-    database = database.filter((postItem) => postItem.id !== postId);
+    const postIndex = database.findIndex((postItem) => postItem.id === postId);
+    if (postIndex === POST_NOT_FOUND_NUMBER) {
+      throw new CustomError(messages.post.notFound, statusCode.notFound.code);
+    }
+
+    database.splice(postIndex, 1);
   }
 }
 

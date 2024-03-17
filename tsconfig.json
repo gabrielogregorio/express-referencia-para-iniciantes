@@ -27,5 +27,5 @@
       "@/config/*": ["./src/config/*"]
     }
   },
-  "include": ["src/**/*", "src/**.ts", "./src"]
+  "include": ["src/**/*", "src/**.ts", "./src", "./environment.d.ts"]
 }

@@ -1,65 +1,150 @@
 import supertest from 'supertest';
 import { app } from '../app';
+import { mapMessageTestHelper, statusCodeTestHelper } from '../test/utils';
 
 export const request = supertest(app);
 
-const payloadCriarPosts = {
-  title: 'myPost',
-  body: 'myPost',
+const payloadCreatePost = {
+  title: 'a title',
+  body: 'a body',
 };
-let idPostCriado: string;
 
-describe('Testa a funcionalidade de posts', () => {
-  it('Deve criar um post', async () => {
-    const response = await request.post('/posts').send(payloadCriarPosts);
+const payloadUpdated = {
+  title: 'new title',
+  body: 'new body',
+};
+let postIdCreated: string;
 
-    expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({
-      message: 'Post criado',
-      postCreated: {
-        body: 'myPost',
-        id: expect.anything(),
-        title: 'myPost',
-      },
-    });
+describe('Posts', () => {
+  it('should try create a post with invalid payload', async () => {
+    const invalidPayload = {
+      invalidParam: 'example',
+    };
+    const response = await request.post('/posts').send(invalidPayload);
 
-    idPostCriado = response.body.postCreated.id;
+    const expectedResponse = {
+      message: 'Body is invalid "title" is required',
+    };
+
+    expect(response.statusCode).toEqual(statusCodeTestHelper.badRequest);
+    expect(response.body).toEqual(expectedResponse);
   });
 
-  it('Deve obter todos os posts', async () => {
+  it('should try create a post with invalid values', async () => {
+    const invalidPayload = {
+      body: 1,
+      title: null,
+    };
+    const response = await request.post('/posts').send(invalidPayload);
+
+    const expectedResponse = {
+      message: 'Body is invalid "title" must be a string',
+    };
+
+    expect(response.statusCode).toEqual(statusCodeTestHelper.badRequest);
+    expect(response.body).toEqual(expectedResponse);
+  });
+
+  it('should create a post', async () => {
+    const response = await request.post('/posts').send(payloadCreatePost);
+
+    const expectedResponse = {
+      message: 'Post criado com sucesso',
+      data: {
+        ...payloadCreatePost,
+        id: expect.anything(),
+      },
+    };
+
+    expect(response.statusCode).toEqual(statusCodeTestHelper.success);
+    expect(response.body).toEqual(expectedResponse);
+
+    postIdCreated = response.body.data.id;
+  });
+
+  it('should get all posts', async () => {
     const response = await request.get('/posts');
 
-    expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual([{ body: 'myPost', id: expect.anything(), title: 'myPost' }]);
+    const expectedResponse = { data: [{ ...payloadCreatePost, id: expect.anything() }] };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.success);
+    expect(response.body).toEqual(expectedResponse);
   });
 
-  it('Deve obter um post pelo id', async () => {
-    const response = await request.get(`/posts/${idPostCriado}`);
+  it('should try get post by id, but invalid id', async () => {
+    const response = await request.get(`/posts/invalidId`);
 
-    expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({ body: 'myPost', id: expect.anything(), title: 'myPost' });
+    const expectedResponse = {
+      message: mapMessageTestHelper.posts.notFound,
+    };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.notFound);
+    expect(response.body).toEqual(expectedResponse);
   });
 
-  it('Deve editar um post pelo id', async () => {
-    const response = await request.put(`/posts/${idPostCriado}`).send({
-      title: 'novo titulo',
-      body: 'novo body',
-    });
+  it('should get post by id', async () => {
+    const response = await request.get(`/posts/${postIdCreated}`);
 
-    expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({
-      title: 'novo titulo',
-      id: expect.anything(),
-      body: 'novo body',
-    });
+    const expectedResponse = {
+      data: { ...payloadCreatePost, id: expect.anything() },
+    };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.success);
+    expect(response.body).toEqual(expectedResponse);
   });
 
-  it('Deve deletar um post pelo id', async () => {
-    const response = await request.delete(`/posts/${idPostCriado}`);
-    expect(response.statusCode).toEqual(200);
+  it('should try edit post, but body is invalid', async () => {
+    const invalidPayloadUpdated = {
+      title: 1,
+      body: 2,
+    };
 
-    const responsePostById = await request.get(`/posts/${idPostCriado}`);
-    expect(responsePostById.statusCode).toEqual(404);
-    expect(responsePostById.body).toEqual({ message: 'Post não encontrado' });
+    const response = await request.put(`/posts/${postIdCreated}`).send(invalidPayloadUpdated);
+
+    const expectedResponse = {
+      message: 'Body is invalid "title" must be a string',
+    };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.badRequest);
+    expect(response.body).toEqual(expectedResponse);
+  });
+
+  it('should try edit post by id, but id not found', async () => {
+    const response = await request.put(`/posts/idNotFound`).send(payloadUpdated);
+
+    const expectedResponse = {
+      message: mapMessageTestHelper.posts.notFound,
+    };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.notFound);
+    expect(response.body).toEqual(expectedResponse);
+  });
+
+  it('should edit post by id', async () => {
+    const response = await request.put(`/posts/${postIdCreated}`).send(payloadUpdated);
+
+    const expectedResponse = {
+      message: 'Post atualizado com sucesso',
+      data: {
+        ...payloadUpdated,
+        id: expect.anything(),
+      },
+    };
+    expect(response.statusCode).toEqual(statusCodeTestHelper.success);
+    expect(response.body).toEqual(expectedResponse);
+  });
+
+  it('should try delete post by id, but id not found', async () => {
+    const expectedResponse = {
+      message: mapMessageTestHelper.posts.notFound,
+    };
+
+    const response = await request.delete(`/posts/idNotFound`);
+    expect(response.statusCode).toEqual(statusCodeTestHelper.notFound);
+    expect(response.body).toEqual(expectedResponse);
+  });
+
+  it('should delete post by id', async () => {
+    const response = await request.delete(`/posts/${postIdCreated}`);
+    expect(response.statusCode).toEqual(statusCodeTestHelper.success);
+
+    const responsePostById = await request.get(`/posts/${postIdCreated}`);
+    expect(responsePostById.statusCode).toEqual(statusCodeTestHelper.notFound);
+    expect(responsePostById.body).toEqual({ message: mapMessageTestHelper.posts.notFound });
   });
 });

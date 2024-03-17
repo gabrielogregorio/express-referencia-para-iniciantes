@@ -35,7 +35,7 @@ module.exports = {
         templates: false, // permitir templates em outros idiomas
         identifiers: true, // NÃO permitir identificadores em outros idiomas
         lang: 'en_US',
-        skipWords: ['youtube', 'href'], // permitir essas palavras
+        skipWords: ['youtube', 'href', 'cors', 'urlencoded', 'supertest', 'joi', 'dotenv'], // permitir essas palavras
         minLength: 3, // minimo para analisar
       },
     ],
@@ -47,9 +47,9 @@ module.exports = {
     'no-delete-var': 'error',
     'no-const-assign': 'error',
     'no-unreachable': 'error',
-    'max-lines': ['error', { max: 100, skipBlankLines: true, skipComments: true }],
+    'max-lines': ['error', { max: 200, skipBlankLines: true, skipComments: true }],
     'max-depth': ['error', 3],
-    'max-lines-per-function': ['error', { max: 100, skipBlankLines: true, skipComments: true }],
+    'max-lines-per-function': ['error', { max: 200, skipBlankLines: true, skipComments: true }],
     'max-params': ['error', { max: 4 }],
     'no-console': 'off',
     'no-shadow': 'off',

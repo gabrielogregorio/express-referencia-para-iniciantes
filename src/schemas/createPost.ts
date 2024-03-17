@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { useValidationInput } from '../middlewares/useValidation';
 
 export type CreatePostBodyType = {
   title: string;
@@ -8,7 +9,11 @@ export type CreatePostBodyType = {
 // o true é para impedir que usuário envie parâmetros extras, que possam eventualmente
 // abrir alguma brecha. Aqui só poderá ser passado title e body, como string, nada a mais
 // e nada a menos
-export const schemaCreatePost = Joi.object<CreatePostBodyType, true>().keys({
+const schemaBodyCreatePost = Joi.object<CreatePostBodyType, true>().keys({
   title: Joi.string().required(),
   body: Joi.string().required(),
 });
+
+export const schemaCreatePost: useValidationInput = {
+  body: schemaBodyCreatePost,
+};

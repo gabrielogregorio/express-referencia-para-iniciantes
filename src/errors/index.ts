@@ -1,10 +1,10 @@
-export class AppError {
-  error: string;
+export class CustomError {
+  message: string;
 
   status: number;
 
-  constructor(error: string, status: number) {
-    this.error = error;
+  constructor(message: string, status: number) {
+    this.message = message;
     this.status = status;
   }
 }

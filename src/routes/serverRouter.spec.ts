@@ -8,6 +8,6 @@ describe(' Testa se o servidor está rodando', () => {
     const response = await request.get('/');
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({ message: 'Aplicação rodando' });
+    expect(response.body).toEqual({ message: 'success' });
   });
 });
